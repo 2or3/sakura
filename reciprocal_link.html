@@ -78,7 +78,6 @@
     </head>
 
     <body background="assets/lib/images/photos/sakura.jpg">
-    <?php include_once("parts/analyticstracking.php") ?> 
     <!-- Slider Kit core -->
     <script src="assets/lib/js/sliderkit/jquery.sliderkit.1.9.2.pack.js"></script>
 
@@ -111,10 +110,10 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav nav-tab" id="myTab">
-          <li id="greeting-nav"><a href="/index.php#m-greeting" data-toggle="tab">ごあいさつ</a></li>
-          <li id="admission-nav"><a href="/index.php#m-admission" data-toggle="tab">ご入会案内</a></li>
-          <li id="history-nav"><a href="/index.php#m-history" data-toggle="tab">活動紹介</a></li>
-          <li id="access-nav"><a href="/index.php#m-access" data-toggle="tab">アクセス</a></li>
+          <li id="greeting-nav"><a href="/index.html#m-greeting" data-toggle="tab">ごあいさつ</a></li>
+          <li id="admission-nav"><a href="/index.html#m-admission" data-toggle="tab">ご入会案内</a></li>
+          <li id="history-nav"><a href="/index.html#m-history" data-toggle="tab">活動紹介</a></li>
+          <li id="access-nav"><a href="/index.html#m-access" data-toggle="tab">アクセス</a></li>
         </ul>
         <form class="navbar-form navbar-right" role="search" method="get" action="http://search.yahoo.co.jp/search">
           <div class="form-group">
@@ -140,10 +139,10 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav nav-tab" id="myTab">
-          <li id="greeting-nav"><a href="/index.php#m-greeting" data-toggle="tab">ごあいさつ</a></li>
-          <li id="admission-nav"><a href="/index.php#m-admission" data-toggle="tab">ご入会案内</a></li>
-          <li id="history-nav"><a href="/index.php#m-history" data-toggle="tab">活動紹介</a></li>
-          <li id="access-nav"><a href="/index.php#m-access" data-toggle="tab">アクセス</a></li>
+          <li id="greeting-nav"><a href="/index.html#m-greeting" data-toggle="tab">ごあいさつ</a></li>
+          <li id="admission-nav"><a href="/index.html#m-admission" data-toggle="tab">ご入会案内</a></li>
+          <li id="history-nav"><a href="/index.html#m-history" data-toggle="tab">活動紹介</a></li>
+          <li id="access-nav"><a href="/index.html#m-access" data-toggle="tab">アクセス</a></li>
         </ul>
         <form class="navbar-form navbar-right" role="search" method="get" action="http://search.yahoo.co.jp/search">
           <div class="form-group">
@@ -170,10 +169,10 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav">
-          <li id="greeting-nav"><a href="/index.php#greeting">ごあいさつ</a></li>
-          <li id="admission-nav"><a href="/index.php#admission">ご入会案内</a></li>
-          <li id="history-nav"><a href="/index.php#history">活動紹介</a></li>
-          <li id="access-nav"><a href="/index.php#access">アクセス</a></li>
+          <li id="greeting-nav"><a href="/index.html#greeting">ごあいさつ</a></li>
+          <li id="admission-nav"><a href="/index.html#admission">ご入会案内</a></li>
+          <li id="history-nav"><a href="/index.html#history">活動紹介</a></li>
+          <li id="access-nav"><a href="/index.html#access">アクセス</a></li>
         </ul>
         <form class="navbar-form navbar-right" role="search" method="get" action="http://search.yahoo.co.jp/search">
           <div class="form-group">
@@ -199,10 +198,10 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav">
-          <li id="greeting-nav"><a href="/index.php#greeting">ごあいさつ</a></li>
-          <li id="admission-nav"><a href="/index.php#admission">ご入会案内</a></li>
-          <li id="history-nav"><a href="/index.php#history">活動紹介</a></li>
-          <li id="access-nav"><a href="/index.php#access">アクセス</a></li>
+          <li id="greeting-nav"><a href="/index.html#greeting">ごあいさつ</a></li>
+          <li id="admission-nav"><a href="/index.html#admission">ご入会案内</a></li>
+          <li id="history-nav"><a href="/index.html#history">活動紹介</a></li>
+          <li id="access-nav"><a href="/index.html#access">アクセス</a></li>
         </ul>
         <form class="navbar-form navbar-right" role="search" method="get" action="http://search.yahoo.co.jp/search">
           <div class="form-group">
@@ -219,13 +218,14 @@
         </div>
         <div class="col-lg-8" style="background-color:white;">
           <div class="bs-callout bs-callout-warning">
-            <h2>このHPについて</h2>
+            <h2>相互リンク</h2>
             <p class="bg-danger">
-              富士さくら会のHPです<br>
-              詳細をご希望の方は、以下の連絡先までご連絡ください<br>
-              <ul>
-                <li>Mail:<a href="mailto:fujisakurakai@gmail.com">fujisakurakai@gmail.com</a><br></li>
-              </ul>
+            <ul>
+              <li><a href="http://blog.collarks.net/a/">裏千家 富士さくら会 blog</a></li>
+            </ul>
+            <ul>
+              <li><a href="http://www.dento.cc/">日本伝統文化ポータル</a></li>
+            </ul>
             </p>
           </div>
         </div>
@@ -235,7 +235,22 @@
     </div><!-- /.navbar-collapse -->
 
     <br>
-    <?php require("parts/footer.php"); ?>
+    <footer class="info-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <ul class="nav nav-pills">
+              <li class="active"><a href="/">サイトTop</a></li>
+              <li><a href="/about.html">サイト概要</a></li>
+              <li><a href="/reciprocal_link.html">相互リンク</a></li>
+            </ul>
+            <ul class="footer-link">
+            Copyright © <a href="/">富士さくら会</a> All rights reserved
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
     <script src="assets/js/fl_menu.js"></script>
     </body>
     </html>

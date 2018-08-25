@@ -82,7 +82,6 @@
     </head>
 
     <body background="assets/lib/images/photos/sakura.jpg">
-    <?php include_once("parts/analyticstracking.php") ?> 
     <!-- Slider Kit core -->
     <script src="assets/lib/js/sliderkit/jquery.sliderkit.1.9.2.pack.js"></script>
 
@@ -271,15 +270,68 @@
         </div>
         <div class="col-sm-10 hidden-xs" style="background:white;">
           <div id="info"></br></br></div>
-          <?php require("parts/info.php"); ?>
+            <h3><span class="label glyphicon glyphicon-leaf">お知らせ</span><span class="label label-default">New</span></h3>
+            <p style="border-bottom-style: outset;"></p>
+            <h4>現在お知らせはありません</h4>
           <div id="greeting"></br></br></div>
-          <?php require("parts/greeting.php"); ?>
+            <h3><span class="label glyphicon glyphicon-leaf">ごあいさつ</span><span class="label label-default">Greeting</span></h3>
+            <p style="border-bottom-style: outset;"></p>
+            <img class="img-responsive" src="./assets/lib/images/photos/greeting.jpg"/>
           <div id="admission"></br></br></div>
-          <?php require("parts/admission.php"); ?>
+            <h3><span class="label glyphicon glyphicon-leaf">ご入会案内</span><span class="label label-default">Admission</span></h3>
+            <p style="border-bottom-style: outset;"></p>
+            <div class="panel panel-default">
+              <div class="panel-heading text-center"><h4>富士さくら会</h4></div>
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <td width="25%">講師</td>
+                    <td width="75%">山田 宗貴（ヤマダ ソウキ）</td>
+                  </tr>
+                  <tr>
+                    <td width="25%">資格</td>
+                    <td width="75%">裏千家 正教授</td>
+                  </tr>
+                  <tr>
+                    <td width="25%">稽古日</td>
+                    <td width="75%">
+                      <span itemprop="openingHoursSpecification" itemscope itemtype="http://schema.org/OpeningHoursSpecification" itemref="_closes5 _opens6">
+                      <span itemprop="dayOfWeek" itemscope itemtype="http://schema.org/DayOfWeek">
+                      <span itemprop="name">水曜日</span></span></span>、
+                      <span itemprop="openingHoursSpecification" itemscope itemtype="http://schema.org/OpeningHoursSpecification" itemref="_closes5 _opens6">
+                      <span itemprop="dayOfWeek" itemscope itemtype="http://schema.org/DayOfWeek">
+                      <span itemprop="name">木曜日</span></span></span>、
+                      <span itemprop="openingHoursSpecification" itemscope itemtype="http://schema.org/OpeningHoursSpecification">
+                      <span itemprop="dayOfWeek" itemscope itemtype="http://schema.org/DayOfWeek">
+                      <span itemprop="name">土曜日</span></span><br/>
+                      <span id="_opens6" itemprop="opens" content="T10:00">午前１０時</span> 〜 
+                      <span id="_closes5" itemprop="closes" content="T15:00">午後３時</span></span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td width="25%">月謝</td>
+                    <td width="75%">7,000円〜 許状により異なる</td>
+                  </tr>
+                  <tr>
+                    <td width="25%">お問い合わせ先</td>
+                    <td width="75%"><span class="glyphicon glyphicon-envelope"> <a href="mailto:fujisakurakai@gmail.com">fujisakurakai@gmail.com</a></span></td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="panel-footer">※ お茶会、お茶事等あります。又、会員の方は20才から80才までの方が現在お稽古しております。</div>
+            </div>
           <div id="history"></br></br></div>
-          <?php require("parts/history.php"); ?>
+            <h3><span class="label glyphicon glyphicon-leaf">活動内容</span><span class="label label-default">History</span></h3>
+            <p style="border-bottom-style: outset;"></p>
+            <div class="well">１０年以上お茶会を年２回〜３回行っております</div>
           <div id="access"></br></br></div>
-          <?php require("parts/access.php"); ?>
+            <h3><span class="label glyphicon glyphicon-leaf">アクセス</span><span class="label label-default">Access</span></h3>
+            <p style="border-bottom-style: outset;"></p>
+            <div align=center>
+                <iframe src="parts/map.html" width="100%" height="400" title="堀切菖蒲園" name="map" style="border: 0; padding: 10px; max-width: 500px"></iframe>
+            </div>
+            <h5>以下のメールアドレスまでご連絡ください。</h5>
+            <h6><span class="glyphicon glyphicon-envelope">E-Mail：<a href="mailto:fujisakurakai@gmail.com">fujisakurakai@gmail.com</a></span></h6>
         </div>
         <div class="hidden-lg hidden-md hidden-sm col-xs-12" style="background:white;">
           <ul class="nav nav-tabs" id="myTab">
@@ -291,19 +343,72 @@
           </ul>
           <div class="tab-content">
             <div class="tab-pane" id="m-info">
-            <?php require("parts/info.php"); ?>
+              <h3><span class="label glyphicon glyphicon-leaf">お知らせ</span><span class="label label-default">New</span></h3>
+              <p style="border-bottom-style: outset;"></p>
+              <h4>現在お知らせはありません</h4>
             </div>
             <div class="tab-pane" id="m-greeting">
-            <?php require("parts/greeting.php"); ?>
+              <h3><span class="label glyphicon glyphicon-leaf">ごあいさつ</span><span class="label label-default">Greeting</span></h3>
+              <p style="border-bottom-style: outset;"></p>
+              <img class="img-responsive" src="./assets/lib/images/photos/greeting.jpg"/>
             </div>
             <div class="tab-pane" id="m-admission">
-            <?php require("parts/admission.php"); ?>
+              <h3><span class="label glyphicon glyphicon-leaf">ご入会案内</span><span class="label label-default">Admission</span></h3>
+              <p style="border-bottom-style: outset;"></p>
+              <div class="panel panel-default">
+                <div class="panel-heading text-center"><h4>富士さくら会</h4></div>
+                <table class="table">
+                  <tbody>
+                    <tr>
+                      <td width="25%">講師</td>
+                      <td width="75%">山田 宗貴（ヤマダ ソウキ）</td>
+                    </tr>
+                    <tr>
+                      <td width="25%">資格</td>
+                      <td width="75%">裏千家 正教授</td>
+                    </tr>
+                    <tr>
+                      <td width="25%">稽古日</td>
+                      <td width="75%">
+                        <span itemprop="openingHoursSpecification" itemscope itemtype="http://schema.org/OpeningHoursSpecification" itemref="_closes5 _opens6">
+                        <span itemprop="dayOfWeek" itemscope itemtype="http://schema.org/DayOfWeek">
+                        <span itemprop="name">水曜日</span></span></span>、
+                        <span itemprop="openingHoursSpecification" itemscope itemtype="http://schema.org/OpeningHoursSpecification" itemref="_closes5 _opens6">
+                        <span itemprop="dayOfWeek" itemscope itemtype="http://schema.org/DayOfWeek">
+                        <span itemprop="name">木曜日</span></span></span>、
+                        <span itemprop="openingHoursSpecification" itemscope itemtype="http://schema.org/OpeningHoursSpecification">
+                        <span itemprop="dayOfWeek" itemscope itemtype="http://schema.org/DayOfWeek">
+                        <span itemprop="name">土曜日</span></span><br/>
+                        <span id="_opens6" itemprop="opens" content="T10:00">午前１０時</span> 〜 
+                        <span id="_closes5" itemprop="closes" content="T15:00">午後３時</span></span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td width="25%">月謝</td>
+                      <td width="75%">7,000円〜 許状により異なる</td>
+                    </tr>
+                    <tr>
+                      <td width="25%">お問い合わせ先</td>
+                      <td width="75%"><span class="glyphicon glyphicon-envelope"> <a href="mailto:fujisakurakai@gmail.com">fujisakurakai@gmail.com</a></span></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="panel-footer">※ お茶会、お茶事等あります。又、会員の方は20才から80才までの方が現在お稽古しております。</div>
+              </div>
             </div>
             <div class="tab-pane" id="m-history">
-            <?php require("parts/history.php"); ?>
+              <h3><span class="label glyphicon glyphicon-leaf">活動内容</span><span class="label label-default">History</span></h3>
+              <p style="border-bottom-style: outset;"></p>
+              <div class="well">１０年以上お茶会を年２回〜３回行っております</div>
             </div>
             <div class="tab-pane" id="m-access">
-            <?php require("parts/access.php"); ?>
+              <h3><span class="label glyphicon glyphicon-leaf">アクセス</span><span class="label label-default">Access</span></h3>
+              <p style="border-bottom-style: outset;"></p>
+              <div align=center>
+                  <iframe src="parts/map.html" width="100%" height="400" title="堀切菖蒲園" name="map" style="border: 0; padding: 10px; max-width: 500px"></iframe>
+              </div>
+              <h5>以下のメールアドレスまでご連絡ください。</h5>
+              <h6><span class="glyphicon glyphicon-envelope">E-Mail：<a href="mailto:fujisakurakai@gmail.com">fujisakurakai@gmail.com</a></span></h6>
             </div>
           </div>
           <script>
@@ -336,7 +441,22 @@
     </div></span>
 
     <br>
-    <?php require("./parts/footer.php"); ?>
+    <footer class="info-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <ul class="nav nav-pills">
+              <li class="active"><a href="/">サイトTop</a></li>
+              <li><a href="/about.html">サイト概要</a></li>
+              <li><a href="/reciprocal_link.html">相互リンク</a></li>
+            </ul>
+            <ul class="footer-link">
+            Copyright © <a href="/">富士さくら会</a> All rights reserved
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
     <script src="assets/js/fl_menu.js"></script>
     </body>
     </html>
