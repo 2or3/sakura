@@ -1,0 +1,217 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Parameters:
+  Env:
+    Type: String
+    AllowedValues:
+      - test
+      - prod
+    Default: test
+  GitHubRepository:
+    Type: String
+    Default: sakura
+  GitHubOwner:
+    Type: String
+    Default: 2or3
+
+Mappings:
+  Env:
+    test:
+      GithubTokenSecret: sakura-secrets
+      GitHubBranch: master
+      S3Bucket: fujisakura.collarks.net
+      S3DeplDeployPath: /
+    prod:
+      GithubTokenSecret: sakura-secrets
+      GitHubBranch: master
+      S3Bucket: fujisakura.collarks.net
+      S3DeplDeployPath: /
+
+Resources:
+  PilelineArtifactStore:
+    Type: AWS::S3::Bucket
+    Properties:
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+
+  PipelineRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: "Allow"
+            Principal:
+              Service:
+                - "codepipeline.amazonaws.com"
+            Action:
+              - "sts:AssumeRole"
+      Path: "/"
+      Policies:
+        -
+          PolicyName: CodePipeline
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:*
+                  - iam:PassRole
+                Resource: '*'
+              - Effect: Allow
+                Action:
+                  - codebuild:BatchGetBuilds
+                  - codebuild:StartBuild
+                Resource: '*'
+
+  BuildLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub "sakura-${Env}-s3-codebuild"
+      RetentionInDays: 14
+
+  BuildRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: "Allow"
+            Principal:
+              Service:
+                - "codebuild.amazonaws.com"
+            Action:
+              - "sts:AssumeRole"
+      Path: "/"
+      Policies:
+        -
+          PolicyName: CodeBuild
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - codebuild:*
+                  - iam:PassRole
+                  - secretsmanager:GetSecretValue
+                Resource: '*'
+              - Effect: Allow
+                Action:
+                  - s3:PutObject
+                  - s3:GetObject
+                  - s3:GetObjectVersion
+                  - s3:List*
+                  - s3:GetBucketAcl
+                  - s3:GetBucketLocation
+                Resource:
+                  - !Join ['', ['arn:aws:s3:::', !Ref PilelineArtifactStore]]
+                  - !Join ['', ['arn:aws:s3:::', !Ref PilelineArtifactStore, '/*']]
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource:
+                  - !Sub "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:${BuildLogGroup}:log-stream:*"
+
+  BuildProject:
+    Type: AWS::CodeBuild::Project
+    Properties:
+      Name: !Sub "sakura-${Env}-s3-build"
+      Artifacts:
+        Type: CODEPIPELINE
+      ServiceRole: !Ref BuildRole
+      Source:
+        Type: CODEPIPELINE
+        BuildSpec: build/buildspec.yml
+      Environment:
+        Type: LINUX_CONTAINER
+        ComputeType: BUILD_GENERAL1_SMALL
+        Image: aws/codebuild/docker:18.09.0
+        PrivilegedMode: true
+      LogsConfig:
+        CloudWatchLogs:
+          GroupName: !Ref BuildLogGroup
+          Status: ENABLED
+
+  Pipeline:
+    Type: AWS::CodePipeline::Pipeline
+    Properties:
+      Name: !Sub "sakura-${Env}-s3-pipeline"
+      RoleArn: !GetAtt PipelineRole.Arn
+      Stages:
+        - Name: Source
+          Actions:
+            - Name: Source
+              ActionTypeId:
+                Category: Source
+                Owner: ThirdParty
+                Provider: GitHub
+                Version: 1
+              Configuration:
+                Owner: !Ref GitHubOwner
+                Repo: !Ref GitHubRepository
+                PollForSourceChanges: false
+                Branch: !FindInMap [Env, !Ref Env, GitHubBranch]
+                OAuthToken:
+                  !Sub
+                    - "{{resolve:secretsmanager:${Secret}:SecretString:github-access-token}}"
+                    - Secret:
+                        !FindInMap [Env, !Ref Env, GithubTokenSecret]
+              OutputArtifacts:
+                - Name: SourceArtifact
+        - Name: Build
+          Actions:
+            - Name: Build
+              ActionTypeId:
+                Category: Build
+                Owner: AWS
+                Provider: CodeBuild
+                Version: 1
+              Configuration:
+                ProjectName: !Ref BuildProject
+              InputArtifacts:
+                - Name: SourceArtifact
+              OutputArtifacts:
+                - Name: BuildArtifact
+              Region: ap-northeast-1
+        - Name: Deploy
+          Actions:
+            - Name: Deploy
+              ActionTypeId:
+                Category: Deploy
+                Owner: AWS
+                Provider: S3
+                Version: 1
+              Configuration:
+                BucketName: !FindInMap [Env, !Ref Env, S3Bucket]
+                ObjectKey: !FindInMap [Env, !Ref Env, S3DeplDeployPath]
+                Extract: false
+              InputArtifacts:
+                - Name: BuildArtifact
+              Region: ap-northeast-1
+              Extract: true
+              RunOrder: 1
+      ArtifactStore:
+        Type: S3
+        Location: !Ref PilelineArtifactStore
+
+  PipelineWebhook:
+    Type: AWS::CodePipeline::Webhook
+    Properties:
+      Authentication: GITHUB_HMAC
+      AuthenticationConfiguration:
+        SecretToken:
+          !Sub
+            - "{{resolve:secretsmanager:${Secret}:SecretString:github-access-token}}"
+            - Secret:
+                !FindInMap [Env, !Ref Env, GithubTokenSecret]
+      Filters:
+        - JsonPath: $.ref
+          MatchEquals: refs/heads/{Branch}
+      TargetAction: Source
+      TargetPipeline: !Ref Pipeline
+      TargetPipelineVersion: !GetAtt Pipeline.Version
+      RegisterWithThirdParty: true

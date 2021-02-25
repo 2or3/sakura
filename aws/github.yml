@@ -1,0 +1,20 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Parameters:
+  StackFamily:
+    Type: String
+    Default: sakura-secrets
+  GithubAccessToken:
+    Type: String
+    NoEcho: true
+
+Resources:
+  SecretsManagerSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Name: !Ref StackFamily
+      Description: sakura で使用するシークレットを保存します
+      SecretString: !Sub |
+        {
+          "github-access-token": "${GithubAccessToken}"
+        }
