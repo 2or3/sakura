@@ -1,0 +1,18 @@
+version: 0.2
+
+env:
+  variables:
+    TZ: Asia/Tokyo
+
+phases:
+  install: {}
+  pre_build: {}
+  build: {}
+  post_build: {}
+
+reports: {}
+artifacts:
+  files:
+    - '**/*'
+  base-directory: ./dist
+cache: {}
