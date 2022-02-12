@@ -8,8 +8,10 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "ajv": ">=6.12.3",
     "ansi-regex": ">=5.0.1",
     "core-js": "^3.6.5",
+    "eslint": "<7.0.0",
     "glob-parent": ">=5.1.2",
     "is-svg": ">=4.3.0",
     "node-forge": ">=1.0.0",
